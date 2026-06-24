@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pdf/widgets.dart' as pw;
-import 'package:printing/printing.dart';
+
 
 import 'bill.dart';
 import 'database_helper.dart';
@@ -117,163 +116,7 @@ class _AddBillScreenState
     medicineController.clear();
   }
 
-  Future<void> generatePdf() async {
-  if (selectedPatient == null ||
-      selectedDoctor == null) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text(
-          "Select patient and doctor first",
-        ),
-      ),
-    );
-    return;
-  }
 
-  final now = DateTime.now();
-
-  final pdf = pw.Document();
-
-  pdf.addPage(
-    pw.Page(
-      build: (context) {
-        return pw.Column(
-          crossAxisAlignment:
-              pw.CrossAxisAlignment.start,
-          children: [
-            pw.Center(
-              child: pw.Text(
-                "HOSPITAL RECORD MANAGEMENT SYSTEM",
-                style: pw.TextStyle(
-                  fontSize: 24,
-                  fontWeight:
-                      pw.FontWeight.bold,
-                ),
-              ),
-            ),
-
-            pw.SizedBox(height: 20),
-
-            pw.Text(
-              "Date: ${now.day}-${now.month}-${now.year}",
-            ),
-
-            pw.Text(
-              "Time: ${now.hour}:${now.minute}",
-            ),
-
-            pw.Text(
-              "Bill No: BILL${now.millisecondsSinceEpoch}",
-            ),
-
-            pw.SizedBox(height: 20),
-
-            pw.Text(
-              "Patient Name: $selectedPatient",
-              style: pw.TextStyle(
-                fontWeight:
-                    pw.FontWeight.bold,
-              ),
-            ),
-
-            pw.Text(
-              "Doctor Name: $selectedDoctor",
-              style: pw.TextStyle(
-                fontWeight:
-                    pw.FontWeight.bold,
-              ),
-            ),
-
-            pw.SizedBox(height: 20),
-
-            pw.Divider(),
-
-            pw.Row(
-              mainAxisAlignment:
-                  pw.MainAxisAlignment
-                      .spaceBetween,
-              children: [
-                pw.Text(
-                  "Consultation Fee",
-                ),
-                pw.Text(
-                  "Rs.${consultationController.text}",
-                ),
-              ],
-            ),
-
-            pw.SizedBox(height: 8),
-
-            pw.Row(
-              mainAxisAlignment:
-                  pw.MainAxisAlignment
-                      .spaceBetween,
-              children: [
-                pw.Text(
-                  "Medicine Fee",
-                ),
-                pw.Text(
-                  "Rs.${medicineController.text}",
-                ),
-              ],
-            ),
-
-            pw.Divider(),
-
-            pw.Row(
-              mainAxisAlignment:
-                  pw.MainAxisAlignment
-                      .spaceBetween,
-              children: [
-                pw.Text(
-                  "TOTAL AMOUNT",
-                  style: pw.TextStyle(
-                    fontSize: 18,
-                    fontWeight:
-                        pw.FontWeight.bold,
-                  ),
-                ),
-                pw.Text(
-                  "Rs.$totalAmount",
-                  style: pw.TextStyle(
-                    fontSize: 18,
-                    fontWeight:
-                        pw.FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-
-            pw.SizedBox(height: 40),
-
-            pw.Center(
-              child: pw.Text(
-                "Thank You For Visiting",
-                style: pw.TextStyle(
-                  fontWeight:
-                      pw.FontWeight.bold,
-                ),
-              ),
-            ),
-
-            pw.SizedBox(height: 10),
-
-            pw.Center(
-              child: pw.Text(
-                "Get Well Soon!",
-              ),
-            ),
-          ],
-        );
-      },
-    ),
-  );
-
-  await Printing.layoutPdf(
-    onLayout: (format) async =>
-        pdf.save(),
-  );
-}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -457,15 +300,7 @@ class _AddBillScreenState
 
               const SizedBox(height: 10),
 
-              ElevatedButton.icon(
-                onPressed: generatePdf,
-                icon: const Icon(
-                  Icons.picture_as_pdf,
-                ),
-                label: const Text(
-                  "Generate PDF",
-                ),
-              ),
+              
             ],
           ),
         ),
