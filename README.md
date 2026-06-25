@@ -178,16 +178,3 @@ flutter run
 
 ---
 
-## 👩‍💻 Author
-
-**Sweetha R**
-
-Final Year B.E. Electronics and Communication Engineering
-
-Flutter Developer | Software Enthusiast
-
----
-
-## ⭐ Support
-
-If you found this project useful, consider giving it a ⭐ on GitHub!
